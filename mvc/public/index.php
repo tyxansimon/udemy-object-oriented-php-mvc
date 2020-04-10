@@ -3,4 +3,4 @@
   require_once '../app/bootstrap.php';
 
   // Instantiate core library
-  Core::getURL();
+  $core = new Core();

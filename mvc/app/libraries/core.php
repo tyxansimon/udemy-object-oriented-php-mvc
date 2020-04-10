@@ -12,16 +12,36 @@
     * URL format - /controller/method/params
     */
   class Core {
-    // Properties
+    // -- Properties
     protected $currentController = "Pages";
     protected $currentMethod = "Index";
     protected $pararms = [];
-    // Methods
-    public static function getURL() {
-      echo $_GET['url'] ?: '';
-    }
-    // Construct
+    // -- Construct
     public function __construct() {
-      $this->getURL;
+      //print_r(self::getURL());
+      $url = self::getURL();
+
+      // Check our app controllers to see if a file exists for first chunk of parsed URL
+      if(file_exists('../app/controllers/'. ucwords($url[0]) .'.php')) :
+        // If exists, set as controller
+        $this->currentController = ucwords($url[0]);
+        // Unset 0 index of URL array
+        unset($url[0]);
+      endif;
+
+      // Require the requested controller
+      require_once '../app/controllers/'. $this->currentController .'.php';
+
+      // Instantiate controller class
+      $this->currentController = new $this->currentController;
+    }
+    // -- Methods
+    public static function getURL() {
+      if(isset($_GET['url'])) :
+        $url = rtrim($_GET['url'], '/');
+        $url = filter_var($url, FILTER_SANITIZE_URL);
+        $url = explode('/', $url);
+        return $url;
+      endif;
     }
   }

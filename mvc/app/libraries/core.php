@@ -30,7 +30,7 @@
       endif;
 
       // Require the requested controller
-      require_once '../app/controllers/'. $this->currentController .'.php';
+      require_once "../app/controllers/$this->currentController.php";
 
       // Instantiate controller class
       $this->currentController = new $this->currentController;
@@ -55,7 +55,7 @@
       ], $this->params);
     }
     // -- Methods
-    public static function getURL() {
+    static function getURL() {
       if(isset($_GET['url'])) :
         $url = rtrim($_GET['url'], '/');
         $url = filter_var($url, FILTER_SANITIZE_URL);

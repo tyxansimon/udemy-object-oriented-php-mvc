@@ -6,10 +6,13 @@
 
     // Must have the index function as it's default for /libraries/Core.php
     public function index() {
-      $this->view('hello');
+      $data = [
+        'title' => 'Welcome'
+      ];
+      $this->view('pages/index', $data);
     }
 
-    public function about($id) {
-      echo "ID: $id requested";
+    public function about() {
+      $this->view('pages/about');
     }
   }

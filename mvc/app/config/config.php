@@ -1,7 +1,7 @@
 <?php
   // DB params
   define('DB_HOST', 'localhost');
-  define('DB_USER', '_YOUR_USER_');
+  define('DB_USER', 'root');
   define('DB_PASS', 'P@55w0rd123!');
   define('DB_NAME', 'mvc');
 

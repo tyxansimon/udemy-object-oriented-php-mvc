@@ -14,14 +14,28 @@
           <a class="nav-link" href="<?= URLROOT; ?>/pages/about">About</a>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="<?= URLROOT; ?>/users/register">Register</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?= URLROOT; ?>/users/login">Login</a>
-        </li>
-      </ul>
+      <?php
+        if(isset($_SESSION['user_name'])) :
+      ?>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="<?= URLROOT; ?>/users/logout"><strike>Logout</strike></a>
+          </li>
+        </ul>
+      <?php
+        else :
+      ?>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="<?= URLROOT; ?>/users/register">Register</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= URLROOT; ?>/users/login">Login</a>
+          </li>
+        </ul>
+      <?php
+        endif;
+      ?>
     </div>
   </div>
 </nav>

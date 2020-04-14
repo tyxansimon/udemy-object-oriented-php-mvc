@@ -25,6 +25,23 @@
         endif;
       }
 
+      // Login user
+      public function login($email, $password) {
+        $this->db->query("SELECT * FROM users WHERE email = :email");
+        $this->db->bind(":email", $email);
+        // Get single row
+        $row = $this->db->single();
+        // Hash password input to match with DB password
+        $hashed_password = $row->password;
+        if(password_verify($password, $hashed_password)) :
+          // Passwords match
+          return $row;
+        else :
+          // Passwords don't match
+          return false;
+        endif;
+      }
+
       // Find user by email
       public function findUserByEmail($email) {
         // Prepare query and bind info

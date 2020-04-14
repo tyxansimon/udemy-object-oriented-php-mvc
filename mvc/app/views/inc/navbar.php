@@ -19,7 +19,7 @@
       ?>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="<?= URLROOT; ?>/users/logout"><strike>Logout</strike></a>
+            <a class="nav-link" href="<?= URLROOT; ?>/users/logout">Logout</a>
           </li>
         </ul>
       <?php

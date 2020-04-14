@@ -67,6 +67,7 @@
           // Register user
           if($this->userModel->register($data)) :
             // User registered - redirect to login
+            flash('register_success', 'You have successfully registered');
             redirect("users/login");
           else :
             // Uh-oh!
@@ -119,7 +120,7 @@
         else :
           // Check existing email
           if(!$this->userModel->findUserByEmail($data['email'])) :
-            $data['email_error'] = "No account exists for email";
+            $data['email_error'] = "No account for that email";
           endif;
         endif;
 
@@ -130,7 +131,18 @@
 
         // Make sure there are no errors
         if(empty($data['email_error']) && empty($data['password_error'])) :
-          die('Success!');
+          // Validated
+          // Check and set logged in user
+          $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+
+          if($loggedInUser) :
+            // Create session
+            die('Logged in!');
+          else :
+            // Incorrect password
+            $data['password_error'] = "Password incorrect";
+            $this->view('users/login', $data);
+          endif;
         else :
           // Load view with errors
           $this->view('users/login', $data);

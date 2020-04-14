@@ -1,7 +1,8 @@
 <?php
   class Users extends Controller {
     public function __construct() {
-
+      // Check models folder for User.php model file.
+      $this->userModel = $this->model('User');
     }
 
     // Handles GET/POST for registration form
@@ -28,6 +29,11 @@
         // Validate email
         if(empty($data['email'])) :
           $data['email_error'] = "Please enter email";
+        else :
+          // Check existing email
+          if($this->userModel->findUserByEmail($data['email'])) {
+            $data['email_error'] = "That email is already registered";
+          }
         endif;
 
         // Validate name
@@ -46,9 +52,9 @@
         if(empty($data['confirm_password'])) :
           $data['confirm_password_error'] = "Please confirm password";
         else:
-          if($data['password'] !== $data['confirm_password']) {
+          if($data['password'] !== $data['confirm_password']) :
             $data['confirm_password_error'] = "Passwords do not match";
-          }
+          endif;
         endif;
 
         // Make sure there are no errors
@@ -97,6 +103,11 @@
         // Validate email
         if(empty($data['email'])) :
           $data['email_error'] = "Please enter email";
+        else :
+          // Check existing email
+          if(!$this->userModel->findUserByEmail($data['email'])) :
+            $data['email_error'] = "No account exists for email";
+          endif;
         endif;
 
         // Validate password

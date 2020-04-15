@@ -41,4 +41,14 @@
         endif;
       }
 
+      public function getPostById($id) {
+        $this->db->Query("SELECT * FROM posts WHERE id = :id");
+        // Bind values
+        $this->db->bind(":id", $id);
+
+        $result = $this->db->single();
+
+        return $result;
+      }
+
     }

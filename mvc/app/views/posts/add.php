@@ -10,9 +10,7 @@
       </fieldset>
       <fieldset class="form-group">
         <label for="body">Body: <sup>*</sup></label>
-        <textarea type="body" name="body" class="form-control form-control-lg <?= !empty($data['body_error']) ? "is-invalid" : ""; ?>">
-          <?= $data['body']; ?>
-        </textarea>
+        <textarea type="body" name="body" class="form-control form-control-lg <?= !empty($data['body_error']) ? "is-invalid" : ""; ?>"><?= $data['body']; ?></textarea>
         <div class="invalid-feedback"><?= $data['body_error']; ?></div>
       </fieldset>
       <div class="row">

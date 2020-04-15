@@ -6,6 +6,7 @@
       endif;
 
       $this->postModel = $this->model('Post');
+      $this->userModel = $this->model('User');
     }
 
     public function index() {
@@ -21,8 +22,13 @@
     }
 
     public function show($id) {
-      $data = [
+      // Get posts
+      $post = $this->postModel->getPostById($id);
+      $user = $this->userModel->getUserById($post->user_id);
 
+      $data = [
+        'post' => $post,
+        'user' => $user
       ];
       $this->view('posts/show', $data);
     }
@@ -59,7 +65,7 @@
             flash("post_message", "Post added");
             redirect("posts");
           else :
-            die("Simoething went wrong");
+            die("Something went wrong");
           endif;
         else:
           // Load view with errors
